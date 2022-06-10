@@ -1,3 +1,4 @@
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -165,19 +166,25 @@ function diamond($lines){
     }
 
 }
+
+
+function pdo($db){
+    $dsn="mysql:host=localhost;charset=utf8;dbname=$db";
+    return new PDO($dsn,'root','');
+}
+
 //all()-給定資料表名後，會回傳整個資料表的資料
 function all($table){
-    $dsn="mysql:host=localhost;charset=utf8;dbname=school2";
-    $pdo=new PDO($dsn,'root','');
+    $pdo=pdo('school2');
     $sql="SELECT * FROM `$table`";
     return $pdo->query($sql)->fetchAll(PDO::FETCH_ASSOC);
 }
 
 
+
 //find()-會回傳資料表指定id的資料
 function find($table,$id){
-    $dsn="mysql:host=localhost;charset=utf8;dbname=school2";
-    $pdo=new PDO($dsn,'root','');
+    $pdo=pdo('school2');
     $sql="SELECT * FROM `$table` WHERE `id`='$id'";
     return $pdo->query($sql)->fetch(PDO::FETCH_ASSOC);
 }
