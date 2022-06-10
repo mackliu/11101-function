@@ -27,9 +27,22 @@
  <div class="quiz">
  給定一個正整數的數值後，會印出對應行數的正三角形星星(依此類推可以設計印菱形，方形的函式)
  </div>
+ <?php
+$size=isset($_GET['size'])?$_GET['size']:3;
+$shap=isset($_GET['shap'])?$_GET['shap']:'正三角形';
+
+?>
+ <form action="db.php">
+     大小:<input type="number" name="size" value="<?=$size;?>">&nbsp;&nbsp;
+     形狀: <select name="shap">
+         <option value="正三角形" <?=($shap=='正三角形')?'selected':'';?>>正三角形</option>
+         <option value="菱形" <?=($shap=='菱形')?'selected':'';?>>菱形</option>
+     </select>
+    <input type="submit" value="繪製">
+ </form>
 <?php
 
-starts(20,'正三角形');
+starts($size,$shap);
 //diamond(30);
 ?>
 
