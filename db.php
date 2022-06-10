@@ -94,6 +94,11 @@ $table=isset($_GET['table'])?$_GET['table']:'students';
  <div class="quiz">
  update()-給定資料表的條件後，會去更新相應的資料。
  </div>
+<?php
+update('students',10,['name'=>'白金圓','parents'=>'白鳳鳴','dept'=>3]);
+
+?>
+
  <div class="quiz">
  insert()-給定資料內容後，會去新增資料到資料表
  </div>
@@ -202,8 +207,29 @@ function show($row){
 }
 
 //update()-給定資料表的條件後，會去更新相應的資料。
-function update(){
+//$data=['aaa'=>'xxxx','bbb'=>'yyyy']
+function update($table,$id,$data){
+    $pdo=pdo('school2');
+    if(is_array($data)){
+        /**
+         * $data=['school_num'=>'100221,
+         *        'name'=>'白金圓',
+         *        'classroom'=>'10101];
+         * 
+         * ==> 'school_num'='100221, 'name'='白金圓', 'classroom'='10101
+         */
+        
+        foreach($data as $key => $value){
+            $tmp[]="`$key`='$value'";
+        }
+        $set=join(',',$tmp);
+        $sql= "UPDATE `$table` SET $set WHERE `id`='$id'";
+    }else{
+        return "資料格式錯誤";
+    }
 
+
+    return $pdo->exec($sql);
 }
 
 
