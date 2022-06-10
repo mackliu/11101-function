@@ -95,17 +95,25 @@ $table=isset($_GET['table'])?$_GET['table']:'students';
  update()-給定資料表的條件後，會去更新相應的資料。
  </div>
 <?php
-update('students',10,['name'=>'白金圓','parents'=>'白鳳鳴','dept'=>3]);
+//update('students',10,['name'=>'白金圓','parents'=>'白鳳鳴','dept'=>3]);
 
 ?>
 
  <div class="quiz">
  insert()-給定資料內容後，會去新增資料到資料表
  </div>
+<?php
+//insert('dept',['code'=>'601','name'=>'資工系']);
+
+?>
+
  <div class="quiz">
  del()-給定條件後，會去刪除指定的資料
  </div>
- 
+ <?php
+
+ del('dept',7);
+ ?>
 
 </body>
 </html>
@@ -234,14 +242,23 @@ function update($table,$id,$data){
 
 
 //insert()-給定資料內容後，會去新增資料到資料表
-function insert(){
+function insert($table,$data){
+    $pdo=pdo('school2');
+        $k="`".join("`,`",array_keys($data))."`";
+        $v="'".join("','",$data)."'";
+    $sql="INSERT INTO `$table` ($k) VALUES($v)";
 
+
+    $pdo->exec($sql);
 }
 
 
 //del()-給定條件後，會去刪除指定的資料
-function del(){
+function del($table,$id){
+    $pdo=pdo('school2');
+    $sql="DELETE FROM `$table` WHERE `id`='$id'";
 
+    return $pdo->exec($sql);
 }
 
 ?>
