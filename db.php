@@ -6,6 +6,9 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>自訂函式練習</title>
     <style>
+        body{
+            font-family: 'Courier New', Courier, monospace;
+        }
         h1{
             text-align: center;
         }
@@ -24,6 +27,12 @@
  <div class="quiz">
  給定一個正整數的數值後，會印出對應行數的正三角形星星(依此類推可以設計印菱形，方形的函式)
  </div>
+<?php
+
+starts(20,'正三角形');
+//diamond(30);
+?>
+
  <div class="quiz">
  all()-給定資料表名後，會回傳整個資料表的資料
  </div>
@@ -45,10 +54,66 @@
 </html>
 <?php
 //給定一個正整數的數值後，會印出對應行數的正三角形星星(依此類推可以設計印菱形，方形的函式)
-function starts(){
+function starts($lines,$type){
+    switch($type){
+        case '正三角形':
+            for($i=0;$i<$lines;$i++){
+   
+                for($k=($lines-1);$k>$i;$k--){
+            
+                    echo "&nbsp;";
+            
+                }
+                for($j=0;$j<($i*2+1);$j++){
+            
+                    echo "*";
+            
+                }
+            
+                echo "<br>";
+            }
+        break;
+        case "菱形":
+            diamond($lines);
+        break;
+    }
+    
+    
+}
+function diamond($lines){
+    $size=$lines;
+
+    //先判斷是否為奇數
+    if($size%2==0){
+        $size=$size+1;
+    }
+    if($size<3){
+        $size=3;
+    }
+    
+    for($i=0;$i<$size;$i++){
+    
+        if($i<=(($size-1)/2)){
+            $space=($size-1)/2-$i;
+            $stars=$i*2+1; 
+        }else{
+            $space=$i-($size-1)/2;
+            $stars=($size-$i)*2-1; 
+        }
+    
+        //印空白
+        for($k=0;$k<$space;$k++){
+            echo "&nbsp;";
+        }
+    
+        //印星星
+        for($j=0;$j<$stars;$j++){
+            echo "*";
+        }
+        echo "<br>";
+    }
 
 }
-
 //all()-給定資料表名後，會回傳整個資料表的資料
 function all(){
 
